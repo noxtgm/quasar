@@ -2,6 +2,11 @@
 
 set -eo pipefail
 
+if ! declare -f log_error &>/dev/null; then
+    echo -e "\033[0;31m[ERROR] Cannot run standalone. Use boot.sh instead.\033[0m"
+    exit 1
+fi
+
 main() {
     if ! install_core_packages; then
         log_error "Failed to install core packages. Aborting."

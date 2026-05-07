@@ -3,7 +3,7 @@
 set -eo pipefail
 
 # Define environment paths
-export REPO_NAME="${REPO_NAME:-labs}"
+export REPO_NAME="${REPO_NAME:-labs-dotfiles}"
 export REPO_AUTHOR="${REPO_AUTHOR:-noxtgm}"
 export REPO_PATH="${HOME}/.local/share/${REPO_NAME}"
 export REPO_INSTALL="${REPO_PATH}/install"
