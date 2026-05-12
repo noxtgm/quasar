@@ -25,15 +25,15 @@ install_yay() {
 
     msg "Installing yay..."
 
-    local yay_dir="${REPO_BUILD:-${REPO_PATH}/.build}/yay"
+    local yay_dir="${REPO_BUILD:-${REPO_PATH}/.build}/yay-bin"
 
-    if ! git clone https://aur.archlinux.org/yay.git "$yay_dir"; then
-        error "Failed to clone yay."
+    if ! git clone https://aur.archlinux.org/yay-bin.git "$yay_dir"; then
+        error "Failed to clone yay-bin."
         return 1
     fi
 
     if ! (cd "$yay_dir" && makepkg -si --noconfirm); then
-        error "Failed to build yay."
+        error "Failed to build yay-bin."
         rm -rf "$yay_dir"
         return 1
     fi
@@ -42,46 +42,44 @@ install_yay() {
     msg "Installed yay."
 }
 
-install_packages() {
+install_official_packages() {
     local packages=()
-    if ! parse_packages "${REPO_PATH}/packages" packages; then
-        warning "Package file not found or empty."
+    if ! parse_packages "${REPO_PATH}/packages.official" packages; then
+        warning "Official package file not found or empty."
         return 0
     fi
 
-    local official=()
-    local aur=()
-
-    msg "Classifying packages..."
-    for pkg in "${packages[@]}"; do
-        if pacman -Si "$pkg" &>/dev/null; then
-            official+=("$pkg")
-        else
-            aur+=("$pkg")
-        fi
-    done
-    msg2 "${#official[@]} official, ${#aur[@]} AUR."
-
-    if [[ ${#official[@]} -gt 0 ]]; then
-        msg "Installing official packages..."
-        if ! sudo pacman -S --noconfirm --needed "${official[@]}"; then
-            error "Failed to install official packages."
-            return 1
-        fi
+    msg "Installing ${#packages[@]} official package(s)..."
+    if ! sudo pacman -S --noconfirm --needed "${packages[@]}"; then
+        error "Failed to install official packages."
+        return 1
     fi
 
-    if [[ ${#aur[@]} -gt 0 ]]; then
-        if ! install_yay; then
-            error "Failed to install yay."
-            return 1
-        fi
+    msg "Installed ${#packages[@]} official package(s)."
+}
 
-        msg "Installing AUR packages..."
-        if ! yay -S --noconfirm --needed --answerdiff None --answerclean None "${aur[@]}"; then
-            error "Failed to install AUR packages."
-            return 1
-        fi
+install_aur_packages() {
+    local packages=()
+    if ! parse_packages "${REPO_PATH}/packages.aur" packages; then
+        warning "AUR package file not found or empty."
+        return 0
     fi
 
-    msg "Installed ${#official[@]} official and ${#aur[@]} AUR package(s)."
+    if ! install_yay; then
+        error "Failed to install yay."
+        return 1
+    fi
+
+    msg "Installing ${#packages[@]} AUR package(s)..."
+    if ! yay -S --noconfirm --needed --answerdiff None --answerclean None "${packages[@]}"; then
+        error "Failed to install AUR packages."
+        return 1
+    fi
+
+    msg "Installed ${#packages[@]} AUR package(s)."
+}
+
+install_packages() {
+    install_official_packages
+    install_aur_packages
 }
