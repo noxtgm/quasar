@@ -1,0 +1,28 @@
+# Build tools
+base-devel
+
+# Environment
+hyprland
+quickshell
+
+# Application launcher
+rofi
+
+# Terminal
+ghostty
+
+# Shell tools
+git
+eza
+fzf
+zoxide
+ripgrep
+
+# Code editor
+neovim
+
+# Text editor
+obsidian
+
+# Browser
+librewolf-bin

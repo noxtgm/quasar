@@ -23,18 +23,9 @@ usage() {
 }
 
 do_packages() {
-    if ! install_core_packages; then
-        error "Failed to install core packages."
+    if ! install_packages; then
+        error "Failed to install packages."
         exit 1
-    fi
-
-    if ! install_yay; then
-        error "Failed to install yay."
-        exit 1
-    fi
-
-    if ! install_aur_packages; then
-        error "Failed to install AUR packages."
     fi
 }
 
