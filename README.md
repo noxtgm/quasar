@@ -28,31 +28,36 @@ quasar help                                     Show this help message
 
 ### Applications
 
-- `SUPER` Application launcher
-- `SUPER` + `F` File manager
-- `SUPER` + `SPACE` Terminal
+- `SUPER` + `ENTER` Terminal
+- `SUPER` + `SPACE` Application launcher
+- `SUPER` + `E` File manager
 
 ### Window management
 
-- `SUPER` + `Q` Kill active
+- `SUPER` + `Q` Kill active window
 - `SUPER` + `J` Toggle split
 - `SUPER` + `V` Toggle floating
-- `SUPER` + `P` Toggle pseudo
+- `SUPER` + `P` Pseudo tile
 
 ### Focus management
 
-- `SUPER` + `LEFT` Move focus left
-- `SUPER` + `RIGHT` Move focus right
-- `SUPER` + `UP` Move focus up
-- `SUPER` + `DOWN` Move focus down
+- `SUPER` + `LEFT` Focus left
+- `SUPER` + `RIGHT` Focus right
+- `SUPER` + `UP` Focus up
+- `SUPER` + `DOWN` Focus down
 
 ### Workspace switching
 
 - `SUPER` + `[1-0]` Switch to workspace 1-10
 - `SUPER` + `SHIFT` + `[1-0]` Move window to workspace 1-10
-- `SUPER` + `S` Switch to scratchpad workspace
-- `SUPER` + `SHIFT` + `S` Move window to scratchpad workspace
-- `SUPER` + `[MWHEEL_UP-MWHEEL_DOWN]` Switch to next/last workspace
+- `SUPER` + `S` Toggle scratchpad
+- `SUPER` + `SHIFT` + `S` Move window to scratchpad
+- `SUPER` + `SCROLL` Cycle workspaces
+
+### Mouse
+
+- `SUPER` + `LMB` Move window
+- `SUPER` + `RMB` Resize window
 
 ## Shell commands
 
