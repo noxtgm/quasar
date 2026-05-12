@@ -1,0 +1,124 @@
+#!/bin/bash
+
+set -eo pipefail
+
+REPO_NAME="${REPO_NAME:-quasar}"
+REPO_PATH="${HOME}/.local/share/${REPO_NAME}"
+export REPO_PATH REPO_NAME
+export REPO_LIB="${REPO_PATH}/lib"
+export REPO_CONFIG="${REPO_PATH}/config"
+export REPO_SHELL="${REPO_PATH}/shell"
+
+if [[ ! -d "$REPO_PATH" ]]; then
+    printf "\e[1;31m==> ERROR:\e[0m\e[1m %s not installed at %s\e[0m\n" "$REPO_NAME" "$REPO_PATH" >&2
+    exit 1
+fi
+
+source "${REPO_LIB}/init.sh"
+
+VERSION=$(cat "${REPO_PATH}/version" 2>/dev/null || echo "unknown")
+
+usage() {
+    echo "${REPO_NAME} v${VERSION}"
+    echo ""
+    echo "Usage: ${REPO_NAME} <command> [options]"
+    echo ""
+    echo "Commands:"
+    echo "  install [--packages|--configs|--shell]  Run installation (or specific phase)"
+    echo "  update                                  Pull latest changes and re-apply"
+    echo "  uninstall                               Remove all configurations"
+    echo "  refresh <config-path>                   Reset a config file to repo defaults"
+    echo "  status                                  Show current installation status"
+    echo "  version                                 Show version"
+    echo "  log [--clear]                           View or clear the log file"
+    echo "  help                                    Show this help message"
+}
+
+cmd_install() {
+    INSTALL_ARGS=("$@")
+    source "${REPO_PATH}/install.sh"
+}
+
+cmd_update() {
+    do_update
+}
+
+cmd_uninstall() {
+    source "${REPO_PATH}/uninstall.sh"
+}
+
+cmd_refresh() {
+    if [[ -z "$1" ]]; then
+        error "Missing config path."
+        msg2 "Usage: ${REPO_NAME} refresh <config-path>."
+        return 1
+    fi
+    refresh_config "$1"
+}
+
+cmd_status() {
+    echo "${REPO_NAME} v${VERSION}"
+    echo "Path: ${REPO_PATH}"
+    echo ""
+
+    local configs=()
+    local total=0
+    while IFS= read -r -d '' link; do
+        local rel="${link#"${HOME}/.config/"}"
+        local app="${rel%%/*}"
+        local already=false
+        for c in "${configs[@]}"; do
+            [[ "$c" == "$app" ]] && already=true && break
+        done
+        [[ "$already" == "false" ]] && configs+=("$app")
+        total=$((total + 1))
+    done < <(find "${HOME}/.config" -type l -lname "${REPO_PATH}/*" -print0 2>/dev/null)
+
+    echo "Configs: ${total} symlink(s) across ${#configs[@]} app(s)"
+    for c in "${configs[@]}"; do
+        echo "  - ${c}"
+    done
+
+    echo ""
+    if grep -qF "# --- ${REPO_NAME} shell ---" "$HOME/.bashrc" 2>/dev/null; then
+        echo "Shell config:    installed"
+    else
+        echo "Shell config:    not installed"
+    fi
+
+    if grep -qF 'exec Hyprland' "$HOME/.bash_profile" 2>/dev/null; then
+        echo "Hyprland start:  configured"
+    else
+        echo "Hyprland start:  not configured"
+    fi
+}
+
+cmd_version() {
+    echo "${REPO_NAME} v${VERSION}"
+}
+
+cmd_log() {
+    local logfile="${REPO_PATH}/${REPO_NAME}.log"
+    if [[ "$1" == "--clear" ]]; then
+        > "$logfile" 2>/dev/null
+        echo "Log cleared."
+        return
+    fi
+    if [[ -f "$logfile" ]]; then
+        tail -50 "$logfile"
+    else
+        echo "No log file found."
+    fi
+}
+
+case "${1:-}" in
+    install)   shift; cmd_install "$@" ;;
+    update)    cmd_update ;;
+    uninstall) cmd_uninstall ;;
+    refresh)   shift; cmd_refresh "$@" ;;
+    status)    cmd_status ;;
+    version)   cmd_version ;;
+    log)       shift; cmd_log "$@" ;;
+    help|"")   usage ;;
+    *)         error "Unknown command: $1."; usage; exit 1 ;;
+esac

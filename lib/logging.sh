@@ -1,21 +1,27 @@
 #!/bin/bash
 
-# Log information message in the terminal
-log_info() {
-    echo -e "${BLUE}[INFO] $1${NC}"
+REPO_LOG="${REPO_PATH}/${REPO_NAME}.log"
+
+_log_file() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$1] $2" >> "$REPO_LOG" 2>/dev/null
 }
 
-# Log success message in the terminal
-log_success() {
-    echo -e "${GREEN}[SUCCESS] $1${NC}"
+msg() {
+    printf "${GREEN}==>${ALL_OFF}${BOLD} %s${ALL_OFF}\n" "$1"
+    _log_file "MSG" "$1"
 }
 
-# Log error message in the terminal
-log_error() {
-    echo -e "${RED}[ERROR] $1${NC}"
+msg2() {
+    printf "${BLUE}  ->${ALL_OFF}${BOLD} %s${ALL_OFF}\n" "$1"
+    _log_file "INFO" "$1"
 }
 
-# Log warning message in the terminal
-log_warning() {
-    echo -e "${YELLOW}[WARNING] $1${NC}"
+warning() {
+    printf "${YELLOW}==> WARNING:${ALL_OFF}${BOLD} %s${ALL_OFF}\n" "$1"
+    _log_file "WARNING" "$1"
+}
+
+error() {
+    printf "${RED}==> ERROR:${ALL_OFF}${BOLD} %s${ALL_OFF}\n" "$1" >&2
+    _log_file "ERROR" "$1"
 }

@@ -1,3 +1,6 @@
+# Build artifacts
+.build/
+
 # Temporary files
 *.tmp
 

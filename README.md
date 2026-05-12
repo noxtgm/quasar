@@ -1,14 +1,29 @@
-# labs dotfiles
+# quasar
 
-Personnal dotfiles with an installer utility which installs all necessary packages, scripts, and configs on a brand new minimal arch linux installation.
+Personal dotfiles with an installer utility which installs all necessary packages, scripts, and configs on a brand new minimal Arch Linux installation.
 
-## 📖 Installation
+## Installation
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/noxtgm/labs-dotfiles/main/boot.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/noxtgm/quasar/main/boot.sh)
 ```
 
-## ⌨️ Keybinds
+## CLI
+
+After installation, the `quasar` command is available in new terminal sessions.
+
+```
+quasar install [--packages|--configs|--shell]   Run installation (or specific phase)
+quasar update                                   Pull latest changes and re-apply configs
+quasar uninstall                                Remove all quasar configurations
+quasar refresh <config-path>                    Reset a config file to repo defaults
+quasar status                                   Show current installation status
+quasar version                                  Show version
+quasar log [--clear]                            View or clear the log file
+quasar help                                     Show this help message
+```
+
+## Keybinds
 
 ### Applications
 
@@ -38,7 +53,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/noxtgm/labs-dotfiles/main/bo
 - `SUPER` + `SHIFT` + `S` Move window to scratchpad workspace
 - `SUPER` + `[MWHEEL_UP-MWHEEL_DOWN]` Switch to next/last workspace
 
-## 📋 Shell commands
+## Shell commands
 
 ### List (eza)
 
@@ -77,7 +92,7 @@ bash <(curl -fsSL https://raw.githubusercontent.com/noxtgm/labs-dotfiles/main/bo
 - `gf` Fetch from remote
 - `gr` Rebase
 
-## 📄 License
+## License
 
 [MIT License](https://choosealicense.com/licenses/mit/)
 

@@ -1,12 +1,13 @@
 #!/bin/bash
 
 set -eo pipefail
+trap 'printf "\e[1;31m==> ERROR:\e[0m\e[1m Failed at line %s.\e[0m\n" "$LINENO" >&2; exit 1' ERR
 
 # Define environment paths
-export REPO_NAME="${REPO_NAME:-labs-dotfiles}"
+export REPO_NAME="${REPO_NAME:-quasar}"
 export REPO_AUTHOR="${REPO_AUTHOR:-noxtgm}"
 export REPO_PATH="${HOME}/.local/share/${REPO_NAME}"
-export REPO_INSTALL="${REPO_PATH}/install"
+export REPO_BUILD="${REPO_PATH}/.build"
 export REPO_CONFIG="${REPO_PATH}/config"
 export REPO_SHELL="${REPO_PATH}/shell"
 export REPO_LIB="${REPO_PATH}/lib"
@@ -22,16 +23,25 @@ if [[ -d "${REPO_PATH}" ]]; then
     IS_REINSTALL=true
 fi
 
-# Remove previously existing installation if reinstalling
+# Move existing installation aside if reinstalling
 if [[ "$IS_REINSTALL" == "true" ]]; then
-    rm -rf "${REPO_PATH}"
+    mv "${REPO_PATH}" "${REPO_PATH}.bak"
 fi
 
 # Clone repository
 if ! git clone "https://github.com/${REPO_AUTHOR}/${REPO_NAME}.git" "${REPO_PATH}"; then
-    echo -e "\033[0;31m[ERROR] Failed to clone repository.\033[0m"
+    # Raw ANSI — lib not available yet (repo not cloned)
+    printf "\e[1;31m==> ERROR:\e[0m\e[1m Failed to clone repository.\e[0m\n" >&2
+    if [[ -d "${REPO_PATH}.bak" ]]; then
+        mv "${REPO_PATH}.bak" "${REPO_PATH}"
+        printf "\e[1;34m  ->\e[0m\e[1m Restored previous installation.\e[0m\n"
+    fi
     exit 1
 fi
+
+rm -rf "${REPO_PATH}.bak"
+
+INSTALL_ARGS=("$@")
 
 # Source shared libraries
 source "${REPO_LIB}/init.sh"
