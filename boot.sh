@@ -41,6 +41,8 @@ fi
 
 rm -rf "${REPO_PATH}.bak"
 
+chmod +x "${REPO_PATH}/bin/"* 2>/dev/null
+
 INSTALL_ARGS=("$@")
 
 # Source shared libraries
