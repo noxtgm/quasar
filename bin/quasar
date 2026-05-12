@@ -27,7 +27,8 @@ usage() {
     echo "  install [--packages|--configs|--shell]  Run installation (or specific phase)"
     echo "  update                                  Pull latest changes and re-apply"
     echo "  uninstall                               Remove all configurations"
-    echo "  refresh <config-path>                   Reset a config file to repo defaults"
+    echo "  refresh [app|path]                      Reset config(s) to repo defaults"
+    echo "  toggle [feature]                        Toggle a feature on/off"
     echo "  status                                  Show current installation status"
     echo "  version                                 Show version"
     echo "  log [--clear]                           View or clear the log file"
@@ -49,11 +50,15 @@ cmd_uninstall() {
 
 cmd_refresh() {
     if [[ -z "$1" ]]; then
-        error "Missing config path."
-        msg2 "Usage: ${REPO_NAME} refresh <config-path>."
-        return 1
+        list_configs
+        return 0
     fi
-    refresh_config "$1"
+
+    if [[ -d "${REPO_CONFIG}/$1" ]]; then
+        refresh_app "$1"
+    else
+        refresh_config "$1"
+    fi
 }
 
 cmd_status() {
@@ -97,6 +102,10 @@ cmd_version() {
     echo "${REPO_NAME} v${VERSION}"
 }
 
+cmd_toggle() {
+    toggle "$1"
+}
+
 cmd_log() {
     local logfile="${REPO_PATH}/${REPO_NAME}.log"
     if [[ "$1" == "--clear" ]]; then
@@ -116,6 +125,7 @@ case "${1:-}" in
     update)    cmd_update ;;
     uninstall) cmd_uninstall ;;
     refresh)   shift; cmd_refresh "$@" ;;
+    toggle)    shift; cmd_toggle "$1" ;;
     status)    cmd_status ;;
     version)   cmd_version ;;
     log)       shift; cmd_log "$@" ;;
