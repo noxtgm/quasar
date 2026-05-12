@@ -18,7 +18,7 @@ if ! command -v git &>/dev/null; then
 fi
 
 # Check if execution is reinstalling
-export IS_REINSTALL=false
+IS_REINSTALL=false
 if [[ -d "${REPO_PATH}" ]]; then
     IS_REINSTALL=true
 fi

@@ -1,6 +1,6 @@
 # quasar
 
-Personal dotfiles with an installer utility which installs all necessary packages, scripts, and configs on a brand new minimal Arch Linux installation.
+Personal dotfiles with an installer utility which installs all necessary packages, scripts, and configs on a new clean minimal Arch Linux installation.
 
 ## Installation
 
@@ -16,7 +16,8 @@ After installation, the `quasar` command is available in new terminal sessions.
 quasar install [--packages|--configs|--shell]   Run installation (or specific phase)
 quasar update                                   Pull latest changes and re-apply configs
 quasar uninstall                                Remove all quasar configurations
-quasar refresh <config-path>                    Reset a config file to repo defaults
+quasar refresh [app|path]                       Reset config(s) to repo defaults
+quasar toggle [feature]                         Toggle a feature on/off
 quasar status                                   Show current installation status
 quasar version                                  Show version
 quasar log [--clear]                            View or clear the log file

@@ -17,28 +17,6 @@ parse_packages() {
     return 0
 }
 
-_install_packages() {
-    local name="$1"
-    local package_file="$2"
-    shift 2
-    local install_cmd=("$@")
-
-    local packages=()
-    if ! parse_packages "$package_file" packages; then
-        warning "Package file not found or empty: $package_file."
-        return 0
-    fi
-
-    msg "Installing $name packages..."
-
-    if ! "${install_cmd[@]}" "${packages[@]}"; then
-        error "Failed to install $name packages."
-        return 1
-    fi
-
-    msg "Installed $name packages."
-}
-
 install_yay() {
     if command -v yay &>/dev/null; then
         msg2 "yay already installed, skipping."
@@ -64,12 +42,46 @@ install_yay() {
     msg "Installed yay."
 }
 
-install_core_packages() {
-    _install_packages "core" "${REPO_PATH}/packages.core" \
-        sudo pacman -S --noconfirm --needed
-}
+install_packages() {
+    local packages=()
+    if ! parse_packages "${REPO_PATH}/packages" packages; then
+        warning "Package file not found or empty."
+        return 0
+    fi
 
-install_aur_packages() {
-    _install_packages "AUR" "${REPO_PATH}/packages.aur" \
-        yay -S --noconfirm --needed --answerdiff None --answerclean None
+    local official=()
+    local aur=()
+
+    msg "Classifying packages..."
+    for pkg in "${packages[@]}"; do
+        if pacman -Si "$pkg" &>/dev/null; then
+            official+=("$pkg")
+        else
+            aur+=("$pkg")
+        fi
+    done
+    msg2 "${#official[@]} official, ${#aur[@]} AUR."
+
+    if [[ ${#official[@]} -gt 0 ]]; then
+        msg "Installing official packages..."
+        if ! sudo pacman -S --noconfirm --needed "${official[@]}"; then
+            error "Failed to install official packages."
+            return 1
+        fi
+    fi
+
+    if [[ ${#aur[@]} -gt 0 ]]; then
+        if ! install_yay; then
+            error "Failed to install yay."
+            return 1
+        fi
+
+        msg "Installing AUR packages..."
+        if ! yay -S --noconfirm --needed --answerdiff None --answerclean None "${aur[@]}"; then
+            error "Failed to install AUR packages."
+            return 1
+        fi
+    fi
+
+    msg "Installed ${#official[@]} official and ${#aur[@]} AUR package(s)."
 }
