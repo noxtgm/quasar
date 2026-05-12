@@ -1,12 +1,14 @@
 #!/bin/bash
 # Toggle Hyprland blur effects
 
-current=$(hyprctl getoption decoration:blur:enabled -j 2>/dev/null | sed -n 's/.*"int": \([0-9]*\).*/\1/p')
+STATE_FILE="/tmp/quasar-toggle-blur"
 
-if [[ "$current" -eq 1 ]] 2>/dev/null; then
-    hyprctl eval 'hl.config({ decoration = { blur = { enabled = false } } })'
-    msg2 "Blur disabled."
-else
+if [[ -f "$STATE_FILE" ]]; then
     hyprctl eval 'hl.config({ decoration = { blur = { enabled = true } } })'
+    rm -f "$STATE_FILE"
     msg2 "Blur enabled."
+else
+    hyprctl eval 'hl.config({ decoration = { blur = { enabled = false } } })'
+    touch "$STATE_FILE"
+    msg2 "Blur disabled."
 fi
