@@ -27,6 +27,8 @@ do_packages() {
         error "Failed to install packages."
         exit 1
     fi
+    
+    install_npm_packages
 }
 
 do_configs() {

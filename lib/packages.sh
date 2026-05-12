@@ -79,6 +79,27 @@ install_aur_packages() {
     msg "Installed ${#packages[@]} AUR package(s)."
 }
 
+install_npm_packages() {
+    local packages=()
+    if ! parse_packages "${REPO_PATH}/packages.npm" packages; then
+        warning "NPM package file not found or empty."
+        return 0
+    fi
+
+    if ! command -v npm &>/dev/null; then
+        error "npm not found. Install npm first."
+        return 1
+    fi
+
+    msg "Installing ${#packages[@]} npm package(s)..."
+    if ! sudo npm install -g "${packages[@]}"; then
+        error "Failed to install npm packages."
+        return 1
+    fi
+
+    msg "Installed ${#packages[@]} npm package(s)."
+}
+
 install_packages() {
     install_official_packages || return 1
     install_aur_packages

@@ -1,12 +1,8 @@
 # Build tools
 base-devel
 
-# Environment
-hyprland
-quickshell
-
-# Application launcher
-rofi
+# Runtime
+npm
 
 # Terminal
 ghostty
@@ -17,6 +13,13 @@ eza
 fzf
 zoxide
 ripgrep
+
+# Environment
+hyprland
+quickshell
+
+# Application launcher
+rofi
 
 # Code editor
 neovim

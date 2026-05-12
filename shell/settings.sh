@@ -7,5 +7,5 @@ export REPO_PATH
 
 [[ ":$PATH:" != *":${REPO_PATH}/bin:"* ]] && export PATH="${REPO_PATH}/bin:${PATH}"
 
-HISTSIZE=50
-HISTFILESIZE=50
+HISTSIZE=100
+HISTFILESIZE=100
