@@ -1,8 +1,8 @@
 #!/bin/bash
 # Toggle Hyprland window gaps
 
-GAPS_OUT_DEFAULT=8
-GAPS_IN_DEFAULT=4
+GAPS_OUT_DEFAULT=10
+GAPS_IN_DEFAULT=5
 
 current=$(hyprctl getoption general:gaps_out -j 2>/dev/null | sed -n 's/.*"custom": "\([0-9]*\).*/\1/p')
 

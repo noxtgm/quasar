@@ -32,10 +32,12 @@ do_packages() {
 do_configs() {
     if ! install_all_configs; then
         error "Failed to install configurations."
+        exit 1
     fi
 
     if ! autostart_hyprland; then
         error "Failed to configure Hyprland auto-start."
+        exit 1
     fi
 }
 

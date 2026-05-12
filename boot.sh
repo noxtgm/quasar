@@ -39,8 +39,6 @@ if ! git clone "https://github.com/${REPO_AUTHOR}/${REPO_NAME}.git" "${REPO_PATH
     exit 1
 fi
 
-rm -rf "${REPO_PATH}.bak"
-
 chmod +x "${REPO_PATH}/bin/"* 2>/dev/null
 
 INSTALL_ARGS=("$@")
@@ -50,3 +48,5 @@ source "${REPO_LIB}/init.sh"
 
 # Run installation process
 source "${REPO_PATH}/install.sh"
+
+rm -rf "${REPO_PATH}.bak"

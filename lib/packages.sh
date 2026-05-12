@@ -80,6 +80,6 @@ install_aur_packages() {
 }
 
 install_packages() {
-    install_official_packages
+    install_official_packages || return 1
     install_aur_packages
 }

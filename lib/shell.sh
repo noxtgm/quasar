@@ -12,7 +12,7 @@ _add_line_if_missing() {
     local line="$2"
 
     [[ -f "$file" ]] || touch "$file"
-    grep -qF "$line" "$file" 2>/dev/null || echo "$line" >> "$file"
+    grep -qxF "$line" "$file" 2>/dev/null || echo "$line" >> "$file"
 }
 
 autostart_hyprland() {
