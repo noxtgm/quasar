@@ -4,11 +4,11 @@
 STATE_FILE="/tmp/quasar-toggle-blur"
 
 if [[ -f "$STATE_FILE" ]]; then
-    hyprctl eval 'hl.config({ decoration = { blur = { enabled = true } } })'
-    rm -f "$STATE_FILE"
-    msg2 "Blur enabled."
-else
     hyprctl eval 'hl.config({ decoration = { blur = { enabled = false } } })'
-    touch "$STATE_FILE"
+    rm -f "$STATE_FILE"
     msg2 "Blur disabled."
+else
+    hyprctl eval 'hl.config({ decoration = { blur = { enabled = true } } })'
+    touch "$STATE_FILE"
+    msg2 "Blur enabled."
 fi

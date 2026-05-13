@@ -7,5 +7,7 @@ export REPO_PATH
 
 [[ ":$PATH:" != *":${REPO_PATH}/bin:"* ]] && export PATH="${REPO_PATH}/bin:${PATH}"
 
-HISTSIZE=100
-HISTFILESIZE=100
+bind 'set completion-ignore-case on'
+
+HISTSIZE=25
+HISTFILESIZE=500
