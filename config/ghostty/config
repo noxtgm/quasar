@@ -1,13 +1,20 @@
-theme = catppuccin-mocha
+theme = "light:Catppuccin Latte,dark:Catppuccin Frappe"
 font-family = JetBrainsMono Nerd Font
-font-size = 10
-cursor-style = bar
-mouse-hide-while-typing = true
+font-size = 12
+
 window-padding-x = 8
 window-padding-y = 8
 window-decoration = false
 window-padding-balance = true
+
 adjust-cell-height = 10%
+cursor-style = bar
+mouse-hide-while-typing = true
 mouse-scroll-multiplier = 1
 confirm-close-surface = false
 copy-on-select = clipboard
+
+keybind = alt+up=new_split:up
+keybind = alt+down=new_split:down
+keybind = alt+left=new_split:left
+keybind = alt+right=new_split:right

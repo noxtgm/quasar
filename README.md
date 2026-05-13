@@ -46,6 +46,7 @@ quasar help                                     Show this help message
 - `SUPER` + `ARROWS` Move focus
 - `SUPER` + `SHIFT` + `ARROWS` Swap windows
 - `ALT` + `TAB` Cycle windows
+- `ALT` + `SHIFT` + `TAB` Cycle windows backward
 
 ### Workspaces
 
@@ -62,12 +63,19 @@ quasar help                                     Show this help message
 - `SUPER` + `RMB` Resize window
 - `SUPER` + `SCROLL` Cycle workspaces
 
+### Terminal (ghostty)
+
+- `ALT` + `UP` Split up
+- `ALT` + `DOWN` Split down
+- `ALT` + `LEFT` Split left
+- `ALT` + `RIGHT` Split right
+
 ## Shell commands
 
 ### List (eza)
 
-- `ls` List files with icons
-- `lsa` List files, including hidden, with icons
+- `ls` List files with date and icons
+- `lsa` List files, including hidden, with date and icons
 - `lsx` List files with permissions, size, date, and icons
 - `lsxa` List files, including hidden, with extra info
 
@@ -87,7 +95,8 @@ quasar help                                     Show this help message
 
 ### Search (fzf)
 
-- `ff` Fuzzy find files
+- `ff` Fuzzy find files and open in neovim
+- `fg` Fuzzy grep content and open in neovim
 
 ### Version control (git)
 
