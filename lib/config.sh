@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Returns: 0 = created/updated, 1 = error, 2 = already up-to-date
 _link_config() {
     local src="$1"
     local dest="$2"

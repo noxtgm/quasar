@@ -14,7 +14,7 @@ After installation, the `quasar` command is available in new terminal sessions.
 
 ```
 quasar install [--packages|--configs|--shell]   Run installation (or specific phase)
-quasar update                                   Pull latest changes and re-apply configs
+quasar update [--force]                         Pull latest changes and re-apply configs
 quasar uninstall                                Remove all quasar configurations
 quasar refresh [app|path]                       Reset config(s) to repo defaults
 quasar toggle [feature]                         Toggle a feature on/off
@@ -65,10 +65,24 @@ quasar help                                     Show this help message
 
 ### Terminal (ghostty)
 
-- `ALT` + `UP` Split up
-- `ALT` + `DOWN` Split down
-- `ALT` + `LEFT` Split left
-- `ALT` + `RIGHT` Split right
+- `ALT` + `F4` Close window
+- `CTRL` + `SHIFT` + `T` New tab
+- `CTRL` + `SHIFT` + `W` Close tab
+- `CTRL` + `SHIFT` + `TAB` Previous tab
+- `CTRL` + `TAB` Next tab
+- `ALT` + `[1-9]` Go to tab 1-9
+- `CTRL` + `ALT` + `ARROWS` New split
+- `ALT` + `ARROWS` Focus split
+- `CTRL` + `SUPER` + `SHIFT` + `ARROWS` Resize split
+- `CTRL` + `SHIFT` + `C` Copy
+- `CTRL` + `SHIFT` + `V` Paste
+- `SHIFT` + `INSERT` Paste selection
+- `SHIFT` + `HOME` / `END` Scroll to top / bottom
+- `SHIFT` + `PAGE UP` / `PAGE DOWN` Scroll page
+- `CTRL` + `SHIFT` + `PAGE UP` / `PAGE DOWN` Jump to prompt
+- `CTRL` + `=` / `-` Increase / decrease font size
+- `CTRL` + `0` Reset font size
+- `CTRL` + `SHIFT` + `P` Command palette
 
 ## Shell commands
 

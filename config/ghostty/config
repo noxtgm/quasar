@@ -1,5 +1,3 @@
-confirm-close-surface = false
-
 config-file = bindings
 config-file = font
 config-file = mouse

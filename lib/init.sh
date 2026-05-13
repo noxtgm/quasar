@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Source shared libraries
 source "${REPO_LIB}/colors.sh"
 source "${REPO_LIB}/logging.sh"
 source "${REPO_LIB}/packages.sh"
