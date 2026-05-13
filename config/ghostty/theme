@@ -1,0 +1,4 @@
+theme = "light:Catppuccin Latte,dark:Catppuccin Frappe"
+font-family = "JetBrains Mono Regular"
+font-size = 12
+adjust-cell-height = 10%
