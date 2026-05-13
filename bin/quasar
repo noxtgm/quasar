@@ -25,7 +25,7 @@ usage() {
     echo ""
     echo "Commands:"
     echo "  install [--packages|--configs|--shell]  Run installation (or specific phase)"
-    echo "  update                                  Pull latest changes and re-apply"
+    echo "  update [--force]                        Pull latest changes and re-apply"
     echo "  uninstall                               Remove all configurations"
     echo "  refresh [app|path]                      Reset config(s) to repo defaults"
     echo "  toggle [feature]                        Toggle a feature on/off"
@@ -41,7 +41,7 @@ cmd_install() {
 }
 
 cmd_update() {
-    do_update
+    do_update "$@"
 }
 
 cmd_uninstall() {
@@ -122,7 +122,7 @@ cmd_log() {
 
 case "${1:-}" in
     install)   shift; cmd_install "$@" ;;
-    update)    cmd_update ;;
+    update)    shift; cmd_update "$@" ;;
     uninstall) cmd_uninstall ;;
     refresh)   shift; cmd_refresh "$@" ;;
     toggle)    shift; cmd_toggle "$1" ;;

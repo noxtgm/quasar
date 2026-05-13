@@ -1,6 +1,15 @@
 #!/bin/bash
 
 do_update() {
+    local force=false
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --force) force=true ;;
+            *) error "Unknown option: $1."; return 1 ;;
+        esac
+        shift
+    done
+
     msg "Checking for updates..."
 
     local old_version
@@ -8,6 +17,11 @@ do_update() {
 
     local old_head
     old_head=$(git -C "${REPO_PATH}" rev-parse HEAD)
+
+    if [[ "$force" == "true" ]]; then
+        git -C "${REPO_PATH}" reset --hard HEAD --quiet
+        git -C "${REPO_PATH}" clean -fd --quiet
+    fi
 
     if ! git -C "${REPO_PATH}" pull --quiet; then
         error "Failed to pull updates."
