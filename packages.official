@@ -4,6 +4,9 @@ base-devel
 # Runtime
 npm
 
+# Fonts
+ttf-jetbrains-mono
+
 # Terminal
 ghostty
 
