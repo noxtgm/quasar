@@ -1,6 +1,6 @@
 theme = catppuccin-mocha
-font-family = JetBrains Mono
-font-size = 11
+font-family = JetBrainsMono Nerd Font
+font-size = 10
 cursor-style = bar
 mouse-hide-while-typing = true
 window-padding-x = 8

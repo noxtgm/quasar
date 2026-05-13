@@ -5,7 +5,7 @@ base-devel
 npm
 
 # Fonts
-ttf-jetbrains-mono
+ttf-jetbrains-mono-nerd
 
 # Terminal
 ghostty
