@@ -30,8 +30,8 @@ keybind = ctrl+alt+left=new_split:left
 keybind = ctrl+alt+right=new_split:right
 keybind = ctrl+shift+e=unbind
 keybind = ctrl+shift+o=unbind
-keybind = ctrl+super+open_bracket=unbind
-keybind = ctrl+super+close_bracket=unbind
+keybind = ctrl+super+]=unbind
+keybind = ctrl+super+[=unbind
 keybind = alt+up=goto_split:top
 keybind = alt+down=goto_split:bottom
 keybind = alt+left=goto_split:left
@@ -56,9 +56,9 @@ keybind = ctrl+shift+page_up=jump_to_prompt:-1
 keybind = ctrl+shift+page_down=jump_to_prompt:1
 
 # Font size
-keybind = ctrl+equal=increase_font_size
-keybind = ctrl+shift+equal=increase_font_size
-keybind = ctrl+minus=decrease_font_size
+keybind = ctrl+equal=increase_font_size:1
+keybind = ctrl+shift+equal=increase_font_size:1
+keybind = ctrl+-=decrease_font_size:1
 keybind = ctrl+0=reset_font_size
 
 # Config
