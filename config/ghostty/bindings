@@ -13,15 +13,15 @@ keybind = ctrl+page_up=unbind
 keybind = ctrl+tab=next_tab
 keybind = ctrl+shift+right=unbind
 keybind = ctrl+page_down=unbind
-keybind = alt+one=goto_tab:1
-keybind = alt+two=goto_tab:2
-keybind = alt+three=goto_tab:3
-keybind = alt+four=goto_tab:4
-keybind = alt+five=goto_tab:5
-keybind = alt+six=goto_tab:6
-keybind = alt+seven=goto_tab:7
-keybind = alt+eight=goto_tab:8
-keybind = alt+nine=last_tab
+keybind = alt+1=goto_tab:1
+keybind = alt+2=goto_tab:2
+keybind = alt+3=goto_tab:3
+keybind = alt+4=goto_tab:4
+keybind = alt+5=goto_tab:5
+keybind = alt+6=goto_tab:6
+keybind = alt+7=goto_tab:7
+keybind = alt+8=goto_tab:8
+keybind = alt+9=last_tab
 
 # Split management
 keybind = ctrl+alt+up=new_split:up
