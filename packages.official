@@ -3,6 +3,7 @@ base-devel
 
 # Runtime
 npm
+7zip
 
 # Fonts
 ttf-jetbrains-mono
