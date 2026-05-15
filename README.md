@@ -21,7 +21,7 @@ quasar toggle [feature]                         Toggle a feature on/off
 quasar status                                   Show current installation status
 quasar version                                  Show version
 quasar log [--clear]                            View or clear the log file
-quasar help                                     Show this help message
+quasar help                                     Show command usage
 ```
 
 ## Keybinds
