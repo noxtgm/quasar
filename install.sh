@@ -22,6 +22,29 @@ usage() {
     echo "No flags runs the full installation."
 }
 
+do_git_setup() {
+    msg "Git configuration"
+
+    local name email
+
+    read -rp "  Enter your Git username: " name
+    while [[ -z "$name" ]]; do
+        warning "Username cannot be empty."
+        read -rp "  Enter your Git username: " name
+    done
+
+    read -rp "  Enter your Git email: " email
+    while [[ -z "$email" ]]; do
+        warning "Email cannot be empty."
+        read -rp "  Enter your Git email: " email
+    done
+
+    git config --global user.name "$name"
+    git config --global user.email "$email"
+
+    msg2 "Git configured as $name <$email>."
+}
+
 do_packages() {
     if ! install_packages; then
         error "Failed to install packages."
@@ -85,6 +108,8 @@ main() {
         run_configs=true
         run_shell=true
     fi
+
+    if [[ "$IS_REINSTALL" == "false" ]]; then do_git_setup; fi
 
     if [[ "$run_packages" == "true" ]]; then do_packages; fi
     if [[ "$run_configs" == "true" ]];  then do_configs; fi
