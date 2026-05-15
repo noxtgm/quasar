@@ -32,7 +32,7 @@ usage() {
     echo "  status                                  Show current installation status"
     echo "  version                                 Show version"
     echo "  log [--clear]                           View or clear the log file"
-    echo "  help                                    Show this help message"
+    echo "  help                                    Show command usage"
 }
 
 cmd_install() {
