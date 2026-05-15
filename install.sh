@@ -1,7 +1,6 @@
 #!/bin/bash
 
-set -eo pipefail
-trap 'error "Failed at line $LINENO."; exit 1' ERR
+set -euo pipefail
 
 if ! declare -f error &>/dev/null; then
     # Raw ANSI — lib not sourced yet when running standalone
@@ -34,8 +33,12 @@ do_git_setup() {
     done
 
     read -rp "  Enter your Git email: " email
-    while [[ -z "$email" ]]; do
-        warning "Email cannot be empty."
+    while [[ -z "$email" || ! "$email" == *@* ]]; do
+        if [[ -z "$email" ]]; then
+            warning "Email cannot be empty."
+        else
+            warning "Invalid email address."
+        fi
         read -rp "  Enter your Git email: " email
     done
 
@@ -46,33 +49,21 @@ do_git_setup() {
 }
 
 do_packages() {
-    if ! install_packages; then
-        error "Failed to install packages."
-        exit 1
-    fi
-    
+    install_packages
     install_npm_packages
 }
 
 do_configs() {
-    if ! install_all_configs; then
-        error "Failed to install configurations."
-        exit 1
-    fi
-
-    if ! autostart_hyprland; then
-        error "Failed to configure Hyprland auto-start."
-        exit 1
-    fi
+    install_all_configs
+    autostart_hyprland
 }
 
 do_shell() {
-    if ! configure_shell; then
-        error "Failed to configure shell."
-    fi
+    configure_shell
 }
 
 do_reboot() {
+    local response
     read -rp "Reboot now? [y/N] " response
     if [[ ! "$response" =~ ^[Yy]$ ]]; then
         return
