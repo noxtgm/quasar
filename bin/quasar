@@ -36,6 +36,7 @@ usage() {
 }
 
 cmd_install() {
+    IS_REINSTALL=true
     INSTALL_ARGS=("$@")
     source "${REPO_PATH}/install.sh"
 }
