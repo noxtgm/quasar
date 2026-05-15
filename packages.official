@@ -3,6 +3,10 @@ base-devel
 
 # Runtime
 npm
+docker
+python
+
+# Files
 7zip
 
 # Fonts
